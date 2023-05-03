@@ -101,22 +101,22 @@ def has_overlapping_timings(shift_1: str, shift_2: str) -> bool:
 	overlapping_shift = frappe.db.get_value(
 		"Shift Type", shift_2, ["start_time", "end_time"], as_dict=True
 	)
-
-	if (
-		(
-			curr_shift.start_time > overlapping_shift.start_time
-			and curr_shift.start_time < overlapping_shift.end_time
-		)
-		or (
-			curr_shift.end_time > overlapping_shift.start_time
-			and curr_shift.end_time < overlapping_shift.end_time
-		)
-		or (
-			curr_shift.start_time <= overlapping_shift.start_time
-			and curr_shift.end_time >= overlapping_shift.end_time
-		)
-	):
-		return True
+	if overlapping_shift:
+		if (
+			(
+				curr_shift.start_time > overlapping_shift.start_time
+				and curr_shift.start_time < overlapping_shift.end_time
+			)
+			or (
+				curr_shift.end_time > overlapping_shift.start_time
+				and curr_shift.end_time < overlapping_shift.end_time
+			)
+			or (
+				curr_shift.start_time <= overlapping_shift.start_time
+				and curr_shift.end_time >= overlapping_shift.end_time
+			)
+		):
+			return True
 	return False
 
 
